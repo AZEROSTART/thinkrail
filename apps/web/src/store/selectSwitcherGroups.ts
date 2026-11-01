@@ -1,14 +1,13 @@
 import {
-	isSessionWorking,
 	type Project,
+	type SessionAttention,
 	type SessionStateRecord,
+	sessionAttention,
 	type Workspace,
 } from "@thinkrail/contracts";
 import type { WorkspaceLayoutDocument } from "../shell/layout";
 import type { ClosedChat, SessionRuntime } from "./appStore";
 import { selectChatFirstPrompt } from "./selectors";
-
-export type SessionAttention = "needs-input" | "error" | "unread" | "running";
 
 export interface SwitcherSession {
 	sessionId: string;
@@ -35,14 +34,6 @@ interface SwitcherGroupsState {
 	sessionStateByWorkspace: Record<string, Record<string, SessionStateRecord>>;
 	layoutDocumentsByWorkspace: Record<string, WorkspaceLayoutDocument>;
 	closedChatsByWorkspace: Record<string, ClosedChat[]>;
-}
-
-function getSessionAttention(state: SessionStateRecord["state"]): SessionAttention | null {
-	if (state.needsInput !== null) return "needs-input";
-	if (state.completionUnread && state.completion?.outcome === "failed") return "error";
-	if (state.completionUnread) return "unread";
-	if (isSessionWorking(state)) return "running";
-	return null;
 }
 
 const ATTENTION_PRIORITY: Record<SessionAttention, number> = {
@@ -91,7 +82,7 @@ export function selectSwitcherGroups(state: SwitcherGroupsState): SwitcherProjec
 	const sessionsByProject = new Map<string, SwitcherSession[]>();
 	for (const records of Object.values(state.sessionStateByWorkspace)) {
 		for (const record of Object.values(records)) {
-			const attention = getSessionAttention(record.state);
+			const attention = sessionAttention(record.state);
 			if (!attention) continue;
 			const sessions = sessionsByProject.get(record.projectId) ?? [];
 			const workspace = resolveWorkspace(state, record.projectId, record.workspaceId);

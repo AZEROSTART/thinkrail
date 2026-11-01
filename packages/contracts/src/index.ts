@@ -4,7 +4,9 @@ export {
 	ACCEPTED_IMAGE_TYPES,
 	base64EncodedLength,
 	COMPOSER_GROWTH_LIMITS,
+	chatTitle,
 	clampToCodePoints,
+	compactAgeOf,
 	compareResourceHistory,
 	DEFAULT_CONFIG,
 	DEFAULT_WORKSPACE_NAME,
@@ -53,6 +55,7 @@ export {
 	THEME_MODES,
 	TODO_NUDGE_PREFIX,
 	tallyResources,
+	unnamedChatTitle,
 } from "./domain";
 export type * from "./nativeClient";
 export * from "./pairingUri";
@@ -63,6 +66,7 @@ export {
 	isSessionWorking,
 	isTranscriptMessageRole,
 	sameModel,
+	sessionAttention,
 } from "./piProtocol";
 export type { QuitConfirmationDependencies } from "./quitConfirmation";
 export { createQuitConfirmation, QUIT_CONFIRMATION } from "./quitConfirmation";

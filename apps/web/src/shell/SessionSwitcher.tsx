@@ -1,10 +1,10 @@
 import { RiChat2Line as Chat, RiFolderLine as Folder } from "@remixicon/react";
 import { useT } from "@thinkrail/locales/react";
+import { AttentionDot } from "@thinkrail/ui/attention-dot";
 import { Command, CommandGroup, CommandItem, CommandList } from "@thinkrail/ui/command";
 import { Dialog, DialogContent, DialogTitle } from "@thinkrail/ui/dialog";
+import { RunningIcon } from "@thinkrail/ui/running-icon";
 import { useCallback } from "react";
-import { AttentionDot } from "@/components/AttentionDot";
-import { RunningIcon } from "@/components/RunningIcon";
 import { chatLabel } from "@/lib";
 import { workspaceName } from "@/store";
 import { useSessionSwitcher } from "./useSessionSwitcher";
