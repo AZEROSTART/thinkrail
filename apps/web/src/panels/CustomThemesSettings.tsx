@@ -9,7 +9,7 @@ import { SettingsGroup } from "./SettingsGroup";
 import { SettingsNotice } from "./SettingsNotice";
 import { SettingsRow } from "./SettingsRow";
 
-const EXAMPLE_THEME_PATH = "apps/web/src/themes/bundled/dark.theme.json";
+const EXAMPLE_THEME_PATH = "packages/design-tokens/themes/dark.theme.json";
 
 function issueLabel(t: Translator, issue: UserThemeIssue): string {
 	switch (issue.error) {

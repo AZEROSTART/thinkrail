@@ -3,7 +3,10 @@ import { readFileSync } from "node:fs";
 
 const CSS = readFileSync(new URL("./styles.css", import.meta.url), "utf8");
 const TYPOGRAPHY = JSON.parse(
-	readFileSync(new URL("../../web/src/styles/typography.json", import.meta.url), "utf8"),
+	readFileSync(
+		new URL("../../../packages/design-tokens/styles/typography.json", import.meta.url),
+		"utf8",
+	),
 ) as {
 	fontFamilies: Record<string, { stack: string[]; selfHosted?: string[] } | { $ref: string }>;
 };

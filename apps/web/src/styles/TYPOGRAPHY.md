@@ -14,12 +14,13 @@ ships is *generated* from it. No component may declare a typography value, no ha
 add one, and no other file may hold an alias onto one — change the type of anything by editing the JSON.
 
 ```
-styles/typography.json            the source (see typography.schema.json for the shape)
-styles/typography.schema.json     the editor-facing contract: primitives + fully-resolved styles
-scripts/typography.ts             load / validate / render — the only place CSS names are derived
-scripts/generate-typography.ts    writes the CSS; `--check` fails when it is stale
-scripts/validate-typography.ts    the enforced gate: shape + referential + policy validation
-styles/generated/typography.css   GENERATED, committed, never edited by hand
+packages/design-tokens/
+  styles/typography.json            the source (see typography.schema.json for the shape)
+  styles/typography.schema.json     the editor-facing contract: primitives + fully-resolved styles
+  scripts/typography.ts             load / validate / render — the only place CSS names are derived
+  scripts/generate-typography.ts    writes the CSS; `--check` fails when it is stale
+  scripts/validate-typography.ts    the enforced gate: shape + referential + policy validation
+  styles/generated/typography.css   GENERATED, committed, never edited by hand
 ```
 
 | Command | What it does |

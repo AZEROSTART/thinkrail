@@ -2,8 +2,8 @@ import { describe, expect, it } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { normalizeEol } from "../../scripts/generatedFiles";
-import type { Style, StyleRef, Typography } from "../../scripts/typography";
+import { normalizeEol } from "@thinkrail/design-tokens/scripts/generatedFiles";
+import type { Style, StyleRef, Typography } from "@thinkrail/design-tokens/scripts/typography";
 import {
 	allStyles,
 	GENERATED_PATH,
@@ -18,7 +18,7 @@ import {
 	resolveStyle,
 	styleClassName,
 	validate,
-} from "../../scripts/typography";
+} from "@thinkrail/design-tokens/scripts/typography";
 
 const typography = loadTypography();
 const SRC = fileURLToPath(new URL("..", import.meta.url));
