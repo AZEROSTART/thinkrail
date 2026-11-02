@@ -2,12 +2,11 @@ import { RiFileCopyLine as Copy, RiFolderOpenLine as FolderOpen } from "@remixic
 import type { UserThemesSnapshot } from "@thinkrail/contracts";
 import { T, type Translator, useT } from "@thinkrail/locales/react";
 import { Button } from "@thinkrail/ui/button";
+import { SettingsGroup, SettingsRow } from "@thinkrail/ui/settings";
 import type { ReactNode } from "react";
 import type { UserThemeIssue } from "@/themes";
 import { repoSourceUrl } from "./LanguageSettings";
-import { SettingsGroup } from "./SettingsGroup";
 import { SettingsNotice } from "./SettingsNotice";
-import { SettingsRow } from "./SettingsRow";
 
 const EXAMPLE_THEME_PATH = "packages/design-tokens/themes/dark.theme.json";
 

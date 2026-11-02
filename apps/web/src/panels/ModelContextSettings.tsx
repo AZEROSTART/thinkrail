@@ -11,11 +11,11 @@ import {
 import type { MessageKey } from "@thinkrail/locales";
 import { localeOf, type Translator, t as translate, useT } from "@thinkrail/locales/react";
 import { Button } from "@thinkrail/ui/button";
+import { SettingsGroup } from "@thinkrail/ui/settings";
 import { cn } from "@thinkrail/ui/utils";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 import { toast, useAppStore } from "@/store";
 import { getTransport } from "@/transport";
-import { SettingsGroup } from "./SettingsGroup";
 
 const PRESETS = [
 	{ id: "default", label: "common.default", override: null },

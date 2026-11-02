@@ -17,11 +17,10 @@ import type { MessageKey } from "@thinkrail/locales";
 import { t as translate, useT } from "@thinkrail/locales/react";
 import { Button, IconButton } from "@thinkrail/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@thinkrail/ui/popover";
+import { SETTINGS_ROWS_CONTAINER, SettingsGroup, SettingsRow } from "@thinkrail/ui/settings";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { randomId } from "../lib";
 import { ConfirmDialog } from "../panels/ConfirmDialog";
-import { SettingsGroup } from "../panels/SettingsGroup";
-import { SETTINGS_ROWS_CONTAINER, SettingsRow } from "../panels/SettingsRow";
 import { toast, useAppStore } from "../store";
 import { errorText, getTransport } from "../transport";
 import {

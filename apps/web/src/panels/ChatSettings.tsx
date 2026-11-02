@@ -2,6 +2,13 @@ import type { ChatMessageOrder } from "@thinkrail/chat-ui/chatMessageOrder";
 import type { AppConfigUpdate, ComposerGrowthLimit, SubagentOverride } from "@thinkrail/contracts";
 import type { MessageKey } from "@thinkrail/locales";
 import { T, useT } from "@thinkrail/locales/react";
+import {
+	SegmentedControl,
+	type SegmentedControlOption,
+	SettingsGroup,
+	SettingsPageContainer,
+	SettingsRow,
+} from "@thinkrail/ui/settings";
 import { cn } from "@thinkrail/ui/utils";
 import {
 	moveStreamingResponseHandle,
@@ -11,9 +18,6 @@ import {
 import { selectActiveWorkspace, toast, useAppStore } from "@/store";
 import { errorText, getTransport } from "@/transport";
 import { LineWidthControl } from "./LineWidthSettings";
-import { SegmentedControl, type SegmentedControlOption } from "./SegmentedControl";
-import { SettingsGroup, SettingsPageContainer } from "./SettingsGroup";
-import { SettingsRow } from "./SettingsRow";
 import { SubagentSettings } from "./SubagentSettings";
 
 type OptionSpec<T extends string> = SegmentedControlOption<T> & { label: MessageKey };

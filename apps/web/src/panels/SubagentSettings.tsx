@@ -9,10 +9,9 @@ import {
 } from "@thinkrail/contracts";
 import { useT } from "@thinkrail/locales/react";
 import { Button } from "@thinkrail/ui/button";
+import { SettingsGroup, SettingsRow } from "@thinkrail/ui/settings";
 import { useEffect, useState } from "react";
 import { workspaceName } from "../store";
-import { SettingsGroup } from "./SettingsGroup";
-import { SettingsRow } from "./SettingsRow";
 import { SettingsSwitch } from "./SettingsSwitch";
 
 function parseLimit(draft: string): number | null {

@@ -1,11 +1,11 @@
 import { type AppConfigUpdate, isLineWidth, LINE_WIDTH_COLUMNS } from "@thinkrail/contracts";
 import type { MessageKey } from "@thinkrail/locales";
 import { useT } from "@thinkrail/locales/react";
+import { SETTINGS_ROWS_CONTAINER, SettingsRow } from "@thinkrail/ui/settings";
 import { cn } from "@thinkrail/ui/utils";
 import { useEffect, useState } from "react";
 import { toast, useAppStore } from "@/store";
 import { errorText, getTransport } from "@/transport";
-import { SETTINGS_ROWS_CONTAINER, SettingsRow } from "./SettingsRow";
 import { SettingsSwitch } from "./SettingsSwitch";
 
 type LineWidthKind = "chat" | "file";
