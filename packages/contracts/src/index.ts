@@ -58,6 +58,7 @@ export {
 	tallyResources,
 	unnamedChatTitle,
 } from "./domain";
+export * from "./iceServers";
 export type * from "./nativeClient";
 export * from "./pairingUri";
 export type * from "./piProtocol";

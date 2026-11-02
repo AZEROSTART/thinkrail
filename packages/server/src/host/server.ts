@@ -1,4 +1,5 @@
 import { createHash, randomUUID } from "node:crypto";
+import { hostname } from "node:os";
 import { join, normalize } from "node:path";
 import type {
 	HostUpdateNotice,
@@ -98,8 +99,10 @@ import {
 } from "../projects";
 import {
 	bridgeRemoteWire,
+	type LocalRelay,
 	type RemoteAccess,
 	type RemoteWireBridge,
+	startLocalRelay,
 	startRemoteAccess,
 } from "../remote-transport";
 import { reanchorWorkspace, resolveCommentFromAgent, setReviewPublisher } from "../reviews";
@@ -174,8 +177,11 @@ export interface CreateServerOptions {
 	 * host unauthenticated for local, same-origin use. See `accessToken.ts` and the remote-access plan.
 	 */
 	accessToken?: string;
-	/** When set, the host connects out to this signaling relay so paired devices can drive it remotely. */
-	remote?: { relayUrl: string };
+	/**
+	 * When set, paired devices can drive the host remotely over a signaling relay: `relayUrl` when given,
+	 * else a relay the host runs itself, reachable at this machine's Wi‑Fi/LAN and Tailscale addresses.
+	 */
+	remote?: { relayUrl?: string | undefined };
 	staticDir?: string;
 	projectPath?: string;
 	appVersion?: string;
@@ -225,6 +231,9 @@ const RECENT_FOLDER_CHECK_BUDGET_MS = 250;
 const log = logger("host");
 
 const isRequestId = (id: unknown): id is string => typeof id === "string";
+
+/** This machine's name as a paired phone shows it (`Studio-Mac.local` → `Studio-Mac`). */
+const computerName = (): string => hostname().replace(/\.local$/, "");
 
 function clientProtocolVersion(value: string | null): number {
 	const parsed = Number(value);
@@ -520,9 +529,17 @@ export async function createServer(options: CreateServerOptions = {}): Promise<R
 	server.publish = forwardingPublish;
 
 	let remoteAccess: RemoteAccess | undefined;
+	let localRelay: LocalRelay | undefined;
 	if (remote) {
+		let relayUrl = remote.relayUrl;
+		if (!relayUrl) {
+			localRelay = startLocalRelay();
+			relayUrl = localRelay.connectUrl;
+		}
 		remoteAccess = startRemoteAccess({
-			relayUrl: remote.relayUrl,
+			relayUrl,
+			...(localRelay ? { advertised: localRelay.addresses } : {}),
+			hostName: computerName(),
 			onPaired: (device, channel) => {
 				const clientKey = `remote:${device.id}`;
 				const bridge = bridgeRemoteWire(channel, {
@@ -992,6 +1009,7 @@ export async function createServer(options: CreateServerOptions = {}): Promise<R
 		setJbcentralChangedPublisher(() => {});
 		setLogoutPublisher(() => {});
 		remoteAccess?.stop();
+		localRelay?.stop();
 		server.stop(true);
 	};
 	const shutdown = (): Promise<void> => {
