@@ -42,6 +42,12 @@ default, narrow cross-ring guards, and the quit-confirmation rule both clients d
   instead of pattern-matching an error message. A failure earns a code only when a client behaves differently
   for it; everything else stays a plain `error` string. Expected method-specific outcomes remain typed method
   results rather than generic WS failures; no current-layout protocol exists.
+- **Workspace settling (`workspaceSettling.ts`):** `SettledReason`, `SettledRow`, `WorkspacePartition`,
+  `WorkspaceOrder`, `workspaceSettledReason(workspace, context)` and `partitionWorkspaces(rows, context, order)` —
+  the one rule for which workspaces sit on a project's Settled shelf (parked by hand, PR merged/closed with no
+  work since, or idle past the host's `settleIdleDays`; never Default or a busy workspace), shared by the IDE's
+  store selectors and the phone's tree. The caller supplies `now`, `settleIdleDays`, `busy` and the IDE's
+  live latch, so the rule reads no store.
 - **Remote channel framing (`channelFraming.ts`):** `CHANNEL_CHUNK_BYTES`, `chunkFrames(message)` and
   `createChannelAssembler()` — the one chunking both ends of the remote WebRTC data channel use, because a
   platform caps one DataChannel message (WebKit: 64 KiB) while a wire result such as a transcript is
